@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Card Defaulter Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f4f4f4;">
+    <div class="container mt-5">
+        <div class="card shadow p-4" style="max-width: 800px; margin: auto;">
+            <h2 class="text-center mb-4">Credit Card Defaulter Prediction</h2>
+            <form action="/predict" method="post">
+                <div class="mb-3">
+                    <label for="limit_bal" class="form-label">Limit Balance:</label>
+                    <input type="number" class="form-control" name="limit_bal" required>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="sex" class="form-label">Sex:</label>
+                        <select class="form-select" name="sex" required>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="education" class="form-label">Education:</label>
+                        <select class="form-select" name="education" required>
+                            <option value="1">Graduate School</option>
+                            <option value="2">University</option>
+                            <option value="3">High School</option>
+                            <option value="4">Others</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="marriage" class="form-label">Marriage:</label>
+                        <select class="form-select" name="marriage" required>
+                            <option value="1">Married</option>
+                            <option value="2">Single</option>
+                            <option value="3">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age:</label>
+                    <input type="number" class="form-control" name="age" required>
+                </div>
+
+                <h5 class="mt-4">Payment Status (Last 6 Months)</h5>
+                <div class="row">
+                    {% for i in range(0, 7) %}
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Pay {{ i }}:</label>
+                        <input type="number" class="form-control" name="pay_{{ i }}" required>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <h5 class="mt-4">Bill Amounts (Last 6 Months)</h5>
+                <div class="row">
+                    {% for i in range(1, 7) %}
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Bill Amt {{ i }}:</label>
+                        <input type="number" class="form-control" name="bill_amt{{ i }}" required>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <h5 class="mt-4">Previous Payments (Last 6 Months)</h5>
+                <div class="row">
+                    {% for i in range(1, 7) %}
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Pay Amt {{ i }}:</label>
+                        <input type="number" class="form-control" name="pay_amt{{ i }}" required>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-primary">Predict</button>
+                </div>
+            </form>
+
+            {% if prediction_text %}
+            <div class="alert alert-info text-center mt-4" role="alert">
+                {{ prediction_text }}
+            </div>
+            {% endif %}
+        </div>
+
+        <footer class="text-center mt-4 text-muted">
+            <small>Made with ❤️ for demo purposes</small>
+        </footer>
+    </div>
+</body>
+</html>
